@@ -1,0 +1,2 @@
+Testing Room 2. This is a description placeholder.
+Testing room 2 with multiple lines.
