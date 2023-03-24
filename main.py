@@ -32,12 +32,12 @@ class NPC:
 
 
 start_location = Location("start", "Locations/Space_Station.txt")
-room_1 = Location("Room 1", "Locations/Room_1.txt")
+room_2 = Location("Room 2", "Locations/Room_2.txt")
 
 new_game = Game(start_location)
 
 Game.pdescribe(new_game.current_location)
 
-Game.player_move(new_game, room_1)
+Game.player_move(new_game, room_2)
 
 Game.pdescribe(new_game.current_location)
