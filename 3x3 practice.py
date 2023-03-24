@@ -76,7 +76,7 @@ def main ():
         if direction:
             player.move(direction)
         else:
-            print("invalid command")
+            print("Invalid command")
 
 main()
 
