@@ -1,26 +1,23 @@
 class Game:
-    def __init__(self):
-        self.position = "Room 1"
+    def __init__(self, current_location):
+        self.current_location = current_location
 
-    def print_description(self):
-        # add functionality to read file and pull on descriptions based on the player position
-        # such as if self.position == "Room 2" : pull on a specific file.
-        print("This is a placeholder")
+    @staticmethod
+    def pdescribe(location):
+        with open(location.description) as d:
+            print(d.read())
 
-    def player_move(self):
-        command = ""
-        while command != "go left":
-            command = input("What would you like to do?")
-        if command == "go left":
-            self.position = "Room 2"
+    def player_move(self, new_location):
+        self.current_location = new_location
+        print(f"You find yourself in {self.current_location.name}")
 
 
 class Location:
-    def __init__(self):
-        self.connections = []
+    def __init__(self, name, description_path):
+        self.description = description_path
+        self.name = name
         self.NPCs = []
         self.items = []
-        self.description = ""
 
 
 class Item:
@@ -33,3 +30,14 @@ class NPC:
         self.attitude = ""
         self.dialogue = {}
 
+
+start_location = Location("start", "Locations/Space_Station.txt")
+room_1 = Location("Room 1", "Locations/Room_1.txt")
+
+new_game = Game(start_location)
+
+Game.pdescribe(new_game.current_location)
+
+Game.player_move(new_game, room_1)
+
+Game.pdescribe(new_game.current_location)
