@@ -10,8 +10,8 @@ def input_process(cmd):
 
 # 2. define a function that checks if the command given is a move-command
 # TO DO: add pos-tagging. extract verbs to determine, what command is being given. if "go" -> direction if "talk" -> NPC
-def check_move_direction(tokens, direction):
-    return "go" in tokens and direction in tokens
+def check_move_direction(tokens, input_direction):
+    return "go" in tokens and input_direction in tokens
 
 
 # 3. define a function that checks, what direction the user wants to move.
