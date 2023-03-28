@@ -5,8 +5,10 @@
 import nltk
 # input_process function to tokenize user input.
 def input_process(command):
-    command = nltk.word_tokenize(command)
-    return command
+    tokens = nltk.word_tokenize(command.lower())
+    tagged = nltk.pos_tag(tokens)
+    return tokens, tagged
+
 
 # check_move_direction function to verify if the given command is a move command.
 def check_move(mvmnt, direction):
@@ -61,7 +63,7 @@ class Player:
 
 # game loop where the player can input commands until they decide to quit.
 
-def main ():
+def main():
     player = Player()
     while True:
         user_command = input("What do? ")
@@ -71,7 +73,8 @@ def main ():
             break
 
         tokens = input_process(user_command)
-        direction = determine_direction(tokens)
+        direction = determine_direction(tokens[0])
+        print(tokens)
 
         if direction:
             player.move(direction)

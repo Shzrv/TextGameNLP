@@ -1,6 +1,13 @@
 # in NLTK:
 import nltk
-
+def accept_input():
+    cmd = input("What would you like to do? ")
+    cmd = input_process(cmd)
+    direction = determine_direction(cmd)
+    if direction:
+        print(f"you decided to go {direction}")
+    else:
+        print("not a move command")
 
 # 1. Define function that accepts user input and tokenizes it.
 def input_process(cmd):
@@ -29,11 +36,3 @@ def determine_direction(inpt):
 
     return None
 
-
-cmd = input("What would you like to do? ")
-cmd = input_process(cmd)
-direction = determine_direction(cmd)
-if direction:
-    print(f"you decided to go {direction}")
-else:
-    print("not a move command")
