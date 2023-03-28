@@ -4,7 +4,7 @@ import nltk
 class Game:
     def __init__(self, current_location):
         self.current_location = current_location
-        self.inventory = []
+        self.connections = []
         self.cmd = ""
 
     def accept_input(self):
@@ -30,14 +30,14 @@ class Game:
         print(cmd_type)
         return tokens, cmd_type
 
-    # 2. define a function that checks if the command given is a move-command
+    # define a function that checks if the command given is a move-command
     @staticmethod
     def check_move_direction(tokens, input_direction):
         return "go" in tokens and input_direction in tokens
 
-    # 3. define a function that checks, what direction the user wants to move.
-    @staticmethod
-    def determine_direction(inpt):
+    # TO DO: Write a constructor to turn list of game.connections into a dictionary.
+    def determine_direction(self, command):
+        connections = self.connections
         predefined_direction = {
             "left": lambda tokens: game.check_move_direction(tokens, "left"),
             "right": lambda tokens: game.check_move_direction(tokens, "right"),
@@ -57,8 +57,11 @@ class Game:
         with open(entity.description) as d:
             print("\n", d.read())
 
-    def player_move(self, new_location):
-        self.current_location = new_location
+    def player_move(self, move_command):
+        cmd = move_command[0]
+        if game.connections in cmd:
+            location = set(cmd).intersection(game.connections)
+            self.current_location = location
         print(f"You find yourself in {self.current_location.name}")
 
 
