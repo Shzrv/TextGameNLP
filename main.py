@@ -5,7 +5,6 @@ class Game:
     def __init__(self, current_location):
         self.current_location = current_location
         self.connections = []
-        self.cmd = ""
 
     def accept_input(self):
         cmd = self.cmd = input("What would you like to do? ")
