@@ -9,7 +9,7 @@ class Game:
         self.connections = []
 
 # Accept input. Return [tokenized and tagged]
-# Consider adding a "Quit" break
+# TODO Consider adding a "Quit" break
     def accept_input(self):
         cmd = input("What would you like to do? ")
         tokens = nltk.word_tokenize(cmd)
@@ -19,7 +19,7 @@ class Game:
 
 
 # Decide if this is a move or a talk command. The problem here is that these all must be one word. Needs chunking.
-# There is a problem here. Target never gets processed. SPAGHETTI
+# ! There is a problem here. Target never gets processed. SPAGHETTI
 
     def input_process(self, tokens):
         cmd_type = None
