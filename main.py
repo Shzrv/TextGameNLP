@@ -6,50 +6,30 @@ class Game:
         self.current_location = current_location
         self.connections = []
 
+# Accept input. Return [tokenized and tagged]
     def accept_input(self):
-        cmd = self.cmd = input("What would you like to do? ")
-        cmd = game.input_process(cmd)
-        # If movement:
-        direction = game.determine_direction(cmd)
-        if direction:
-            pass
-        # Elif talk:
-
-    # returns a list of lists - one tokenized, the other tagged
-    # TO DO: add pos-tagging. extract verbs to determine, what command is given. if "go" -> direction if "talk" -> NPC
-    def input_process(self, cmd):
+        cmd = input("What would you like to do? ")
         tokens = nltk.word_tokenize(cmd)
         tagged = nltk.pos_tag(tokens)
+        return tokens, tagged
+
+
+# Decide if this is a move or a talk command. The problem here is that these all must be one word. Needs chunking.
+
+
+    def input_process(self, tokens, tagged):
+
         cmd_type = None
         verbs = [n[0] for n in tagged if str.startswith(str(n[1]), "V")]
         if "go" in verbs:
             cmd_type = "movement"
         elif "talk" in verbs:
             cmd_type = "talk"
+        for entity in tokens:
+            if entity in self.current_location.connections or entity in self.current_location.NPCs:
+                target = entity
         print(cmd_type)
-        return tokens, cmd_type
-
-    # define a function that checks if the command given is a move-command
-    @staticmethod
-    def check_move_direction(tokens, input_direction):
-        return "go" in tokens and input_direction in tokens
-
-    # TO DO: Write a constructor to turn list of game.connections into a dictionary.
-    def determine_direction(self, command):
-        connections = self.connections
-        predefined_direction = {
-            "left": lambda tokens: game.check_move_direction(tokens, "left"),
-            "right": lambda tokens: game.check_move_direction(tokens, "right"),
-            "forward": lambda tokens: game.check_move_direction(tokens, "forwards"),
-            "back": lambda tokens: game.check_move_direction(tokens, "backwards"),
-        }
-
-        for cmd, check in predefined_direction.items():
-            if check(inpt):
-                print(f"you decided to go {cmd}")
-                return cmd
-
-        return None
+        return target, cmd_type
 
     @staticmethod
     def pdescribe(entity):
@@ -79,7 +59,8 @@ class NPC:
 
 
 start_location = Location("start", "Locations/Space_Station.txt")
-start_location.NPCs = [("terminal_start", "NPCs/terminal_start"), ("mystery_device", "NPCs/mystery_device")]
+start_location.NPCs = [("terminal_start", "NPCs/terminal_start"),
+                       ("mystery_device", "NPCs/mystery_device")]
 NPCs = start_location.NPCs
 room_2 = Location("Room 2", "Locations/Room_2.txt")
 terminal = NPC("NPCs/terminal_start", "neutral", None)
