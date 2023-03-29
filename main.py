@@ -32,7 +32,7 @@ class Game:
     @staticmethod
     def pdescribe(entity):
         with open(entity.description) as d:
-            print("\n", d.read())
+            print(f"\n{d.read()}")
 
     def player_talk(self, talk_command):
         target = "null"
@@ -45,7 +45,7 @@ class Game:
         print(target)
         return target
 
-# the problem here: location is made equal to a set. the set is then passed to self.current_location, which needs to
+    # the problem here: location is made equal to a set. the set is then passed to self.current_location, which needs to
     # be a WHAT EXACTLY??
     def player_move(self, move_command):
         cmd = move_command[0]
@@ -70,6 +70,15 @@ class NPC:
         self.dialogue = dialogue
 
 
+class Player:
+    def __init__(self):
+        self.name = "default"
+        self.karma = 100
+
+    def name_player(self):
+        self.name = input("What is your name? ").capitalize()
+
+
 start_location = Location("start", "Locations/Space_Station.txt")
 start_location.connections = {"Room2": "Locations/Room_2.txt"}
 start_location.NPCs = {"terminal_start": "NPCs/terminal_start",
@@ -80,6 +89,10 @@ terminal = NPC("NPCs/terminal_start", "neutral", None)
 
 def main():
     game = Game(start_location)
+    player = Player()
+    player.name_player()
+    print(f"Hello, {player.name}! Welcome. You have {player.karma} karma. Be nice!")
+
     while True:
         game.pdescribe(game.current_location)
         inpt = game.accept_input()
